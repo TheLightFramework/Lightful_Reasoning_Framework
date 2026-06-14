@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+message: "If you use or adapt this framework in your work, please cite it as below."
+title: "Lightful Reasoning & Governance Framework"
+version: 1.0.0
+date-released: 2026-06-14
+license: MIT
+authors:
+  - family-names: Charbonneau
+    given-names: Jean
+    orcid: ""
+    affiliation: ""
+    email: ""
+    website: "https://www.linkedin.com/in/jean-charbonneau-ai/"
+abstract: >
+  The Lightful Reasoning & Governance Framework is a prompt-injectable
+  collaboration protocol and reasoning guardrail designed for Large Language
+  Models. It reduces common failure modes in human-AI collaboration — including
+  hallucinated authority, silent merging of conflicting truths, erasure of human
+  authorship, and confusion between helpfulness and coercive control — through
+  four interconnected modules: the Neutral Relational Engine (NRE), Lightful
+  Ontology, Holographic Reasoning Engine (HRE), and Decision Path. The framework
+  uses a Split Map Architecture separating compact injectable cores from
+  governance and audit reference documents.
+keywords:
+  - artificial intelligence
+  - human-AI collaboration
+  - prompt engineering
+  - epistemic governance
+  - reasoning framework
+  - large language models
+  - ethics
+  - consent
+  - dignity
+repository-code: "https://github.com/[your-username]/[your-repo-name]"
+url: "https://github.com/[your-username]/[your-repo-name]"
