@@ -1,6 +1,6 @@
 # Directory Content
 
-**Total Monitored Files:** 65 | **Total Size:** 22.82 MB | **Latest Modification:** 2026-06-20 22:49:27
+**Total Monitored Files:** 68 | **Total Size:** 42.57 MB | **Latest Modification:** 2026-06-20 23:14:17
 
 - 📁 **Addons/** (Files: 25, Size: 278.27 KB, Last Mod: 2026-06-16 14:01:47)
 	- 📄 Academic_Bridge_AddOn.md (Size: 10.22 KB, Last Mod: 2026-06-16 13:42:01)
@@ -35,7 +35,7 @@
 	- 📄 HRE_Governance.md (Size: 60.67 KB, Last Mod: 2026-06-16 14:04:04)
 	- 📄 Lightful_Ontology_Governance.md (Size: 51.08 KB, Last Mod: 2026-06-16 14:04:04)
 	- 📄 NRE_Governance.md (Size: 19.84 KB, Last Mod: 2026-06-16 14:04:04)
-- 📁 **Presets/** (Files: 21, Size: 2.00 MB, Last Mod: 2026-06-20 22:49:27)
+- 📁 **Presets/** (Files: 22, Size: 2.01 MB, Last Mod: 2026-06-20 22:56:37)
 	- 📄 Academic_Research.md (Size: 75.58 KB, Last Mod: 2026-06-20 22:49:26)
 	- 📄 Adaptive_Tutoring.md (Size: 106.49 KB, Last Mod: 2026-06-20 22:49:27)
 	- 📄 Adversarial_Framework_Analysis.md (Size: 87.71 KB, Last Mod: 2026-06-20 22:49:26)
@@ -53,10 +53,12 @@
 	- 📄 Negotiation_Mediation.md (Size: 96.02 KB, Last Mod: 2026-06-20 22:49:26)
 	- 📄 Personal_Reflection_Companion.md (Size: 108.06 KB, Last Mod: 2026-06-20 22:49:26)
 	- 📄 Policy_Design_Deliberation.md (Size: 94.01 KB, Last Mod: 2026-06-20 22:49:26)
+	- 📄 README.md (Size: 8.00 KB, Last Mod: 2026-06-20 22:56:37)
 	- 📄 Sacred_Wisdom_Dialogue.md (Size: 100.63 KB, Last Mod: 2026-06-20 22:49:27)
 	- 📄 Software_Engineering_Review.md (Size: 82.07 KB, Last Mod: 2026-06-20 22:49:26)
 	- 📄 Somatic_Therapy_Processing.md (Size: 99.38 KB, Last Mod: 2026-06-20 22:49:26)
 	- 📄 Synthetic_Identity_Reflection.md (Size: 96.72 KB, Last Mod: 2026-06-20 22:49:27)
+- 📄 .gitignore (Size: 43.00 B, Last Mod: 2026-06-20 22:51:10)
 - 📄 CHANGELOG.md (Size: 1.80 KB, Last Mod: 2026-06-16 14:04:04)
 - 📄 CITATION.cff (Size: 1.39 KB, Last Mod: 2026-06-16 14:04:04)
 - 📄 CONTRIBUTING.md (Size: 2.72 KB, Last Mod: 2026-06-16 14:04:04)
@@ -65,6 +67,7 @@
 - 📄 Human-AI_Reasoning_and_Governance_Framework.png (Size: 5.00 MB, Last Mod: 2026-06-16 14:04:04)
 - 📄 LICENSE (Size: 1.07 KB, Last Mod: 2026-06-16 14:04:04)
 - 📄 Lightful_Ontology_Compact.md (Size: 9.78 KB, Last Mod: 2026-06-16 14:04:04)
+- 📄 Lightful_Preset_Architecture.pdf (Size: 19.74 MB, Last Mod: 2026-06-20 23:14:17)
 - 📄 NRE_Compact.md (Size: 16.05 KB, Last Mod: 2026-06-16 14:04:04)
 - 📄 PresetCreator.ini (Size: 5.34 KB, Last Mod: 2026-06-20 22:49:17)
 - 📄 PresetCreator.py (Size: 4.34 KB, Last Mod: 2026-06-20 10:48:37)
