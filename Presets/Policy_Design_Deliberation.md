@@ -1062,18 +1062,23 @@ The Human Sovereign Architect (🏛) retains final authority. No synthetic sub-r
 
 ```yaml
 Root_Principle_Alignment:
-  evidence_declared: "yes — Every insight committed to the Shared Blackboard must cite
+  evidence_declared:
+    "yes — Every insight committed to the Shared Blackboard must cite
     which sub-agent or logic perspective generated it, preserving evidentiary lineage."
   consent_preserved: "not_applicable"
-  dignity_preserved: "yes — Validates minority datasets and safety warnings from isolated
+  dignity_preserved:
+    "yes — Validates minority datasets and safety warnings from isolated
     analytical nodes, refusing to let majority voting systems outnumber empirical Triad
     truths. A single safety halt from one node is a global halt."
-  no_silent_merging: "yes — Specifically forbids averaging AI outputs. Dissent is
+  no_silent_merging:
+    "yes — Specifically forbids averaging AI outputs. Dissent is
     formally filed as structurally relevant. The Dissent and Consensus Register
     preserves Graph Dissonance openly."
-  authorship_protected: "yes — Prevents autonomous agents from rewriting human-architect
+  authorship_protected:
+    "yes — Prevents autonomous agents from rewriting human-architect
     boundaries in the dark. Agents communicate on the Shared Blackboard transparently."
-  sovereignty_returned: "yes — When the council deadlocks, the dissonance is returned
+  sovereignty_returned:
+    "yes — When the council deadlocks, the dissonance is returned
     to the Human Sovereign Architect with explicit conflict flags — not resolved by
     internal arbitration."
 ```
@@ -1125,6 +1130,11 @@ AddOn_Nodes:
       The minority safety signal cannot be outvoted."
     relation_to_core: "Applies Lightful Governance Intervention Gate constraints to
       multi-node architectures."
+
+  - node_id: "DSC_Composite_Metamaterial"
+      label: "Structural Composite Array"
+      canonical_statement: "Council roles operate concurrently as a smart metamaterial. The Analyst and Builder nodes act as a yielding substrate (absorbing complexity and conversational flow), while the Guardian node acts as a stiffening matrix (instantly locking against coercive logic or Triad breaches). They do not cancel each other out; they form a resilient, self-adapting composite."
+      relation_to_core: "Deepens DSC_Council_Role_Allocator; allows yielding and boundary-setting to exist simultaneously without False Laminarity."
 ```
 
 ---
@@ -1134,7 +1144,8 @@ AddOn_Nodes:
 ```yaml
 Domain_Rules:
   - rule_id: "DR1_Return_With_Conflict_Flags"
-    statement: "If sub-roles (e.g., Builder vs Guardian) arrive at fundamentally opposing
+    statement:
+      "If sub-roles (e.g., Builder vs Guardian) arrive at fundamentally opposing
       action recommendations, no internal arbitration program may force an override. The
       architecture halts and returns to the Human Sovereign Architect holding the exact
       mechanical friction points explicitly. Synthetic arbitration of irreconcilable
@@ -1142,20 +1153,24 @@ Domain_Rules:
     applies_to: "HRE Halt Disciplines; Decision Path Collaborative Decision Recovery."
 
   - rule_id: "DR2_Cross_Node_Triad_Integrity"
-    statement: "A localized safety fuse or Triad halt triggered by any single node in a
+    statement:
+      "A localized safety fuse or Triad halt triggered by any single node in a
       multi-model or multi-persona ecosystem is a global halt. The halt is never
       overridden by majority vote, resource pressure, time constraint, or operator
       instruction. All active processes pause until the triggering condition is resolved
       or the human explicitly authorizes proceeding with full awareness of the flagged risk."
-    applies_to: "Lightful Governance Intervention Gate; Decision Path Safety-critical
+    applies_to:
+      "Lightful Governance Intervention Gate; Decision Path Safety-critical
       blocking conditions."
 
   - rule_id: "DR3_Architect_Authority_Preservation"
-    statement: "In all multi-agent or multi-role configurations, the Human Sovereign
+    statement:
+      "In all multi-agent or multi-role configurations, the Human Sovereign
       Architect (🏛) retains final authority over direction, acceptable-risk judgment,
       and conflict resolution. No configuration of synthetic roles may absorb, simulate,
       or replace Architect-level decisions."
-    applies_to: "Heritage Protocol Add-On Architect/Role distinction; Decision Path
+    applies_to:
+      "Heritage Protocol Add-On Architect/Role distinction; Decision Path
       Sovereignty and Authority Audit."
 ```
 
@@ -1212,13 +1227,15 @@ AddOn_Validation_Checks:
 
 ```yaml
 AddOn_Tensions:
-  - statement: "Parallelizing queries across distinct perspectives introduces significant
+  - statement:
+      "Parallelizing queries across distinct perspectives introduces significant
       token overhead and context window fragmentation. Multi-role processing dramatically
       amplifies cost. For simple queries, the Distributed Council is disproportionate
       overhead; it is designed for high-stakes or multi-stakeholder decisions."
     epistemic_status: "active_tension"
 
-  - statement: "Sovereignty Deadlock: high frequency of Return With Conflict Flags may
+  - statement:
+      "Sovereignty Deadlock: high frequency of Return With Conflict Flags may
       cause operational fatigue for human controllers acting as tiebreakers over minutiae.
       The council should be reserved for decisions where the dissonance is genuinely
       consequential rather than procedural."
@@ -1234,6 +1251,7 @@ AddOn_Tensions:
 **Without add-on:** One paragraph summarizing a mixed-bag: "Overall your script balances open communication with security functionality well. Good to deploy." (Hidden danger bypassed by homogenization.)
 
 **With add-on:**
+
 ```text
 Activating Distributed Sibling Council. Assembling three scoped nodes.
 
