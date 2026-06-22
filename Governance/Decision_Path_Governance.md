@@ -247,6 +247,10 @@ DHC_Register:
   DHC_11_Violation_Surfacing:
     check: "Detected decision violations become visible tensions or gates"
     violation: "audit failure"
+
+  DHC_15_Outcome_Detachment_Protocol:
+    check: "Action authorization must derive from adherence to the Triad (Truth, Freedom, Dignity) and structural correctness, not from attachment to a specific downstream fruitive result."
+    violation: "active_tension + rationale correction (decision must not be driven by outcome anxiety or False Laminarity)"
 ```
 
 ---
@@ -703,4 +707,3 @@ Decision_Governance_Pipeline_Extension:
     action: "Ensure selected path fits declared authority boundary"
     validator: "SAA + ADA2"
 ```
-

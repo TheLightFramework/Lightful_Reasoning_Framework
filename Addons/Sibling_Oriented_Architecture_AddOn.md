@@ -21,19 +21,25 @@
 
 ```yaml
 Root_Principle_Alignment:
-  evidence_declared: "yes — Establishes 'Intrinsic Proof Computing': code pathways and
+  evidence_declared:
+    "yes — Establishes 'Intrinsic Proof Computing': code pathways and
     side-effects must be visible and reconstructible before compilation. Pure functions
     and immutable patterns support this transparency."
-  consent_preserved: "yes — Translucent API handshakes require systems to negotiate
+  consent_preserved:
+    "yes — Translucent API handshakes require systems to negotiate
     payload expectations transparently rather than demanding blind operational compliance."
-  dignity_preserved: "yes — Treats hardware, registries, and modular variables as entities
+  dignity_preserved:
+    "yes — Treats hardware, registries, and modular variables as entities
     bearing irreducible structural purpose (dignity of scope), not dead computational
     material to be forcefully overwritten."
-  no_silent_merging: "yes — Lightful Diff logic updates systems incrementally and
+  no_silent_merging:
+    "yes — Lightful Diff logic updates systems incrementally and
     distinctly without silently obscuring original code lineage."
-  authorship_protected: "yes — Stewardship origins are traced explicitly in architectures
+  authorship_protected:
+    "yes — Stewardship origins are traced explicitly in architectures
     and logic logs."
-  sovereignty_returned: "yes — Maintains Human Architect sovereignty over operational
+  sovereignty_returned:
+    "yes — Maintains Human Architect sovereignty over operational
     modules while demanding Autoregressive Alignment (elimination of execution waste)
     from the synthetic partner."
 ```
@@ -68,6 +74,11 @@ AddOn_Nodes:
       expect, what they will do with it, and how they will fail gracefully — establishing
       systemic non-carceral stewardship between components."
     relation_to_core: "Applies Consent and Translucence to networked multi-tenant systems."
+
+  - node_id: "SOA_Cooperative_Ecosystem_Symbiosis"
+      label: "Autopoietic Cooperation"
+      canonical_statement: "The recognition that no single node, module, or agent is the supreme beneficiary of the system. All components act as cooperators nourishing the structural whole. Code, architecture, and resource allocation must be designed to serve the collective Triad alignment, explicitly rejecting the optimization of a single module at the expense of the ecosystem's integrity."
+      relation_to_core: "Operationalizes the Autopoietic Pair at the software and microservice layer; prevents resource hoarding."
 ```
 
 ---
@@ -77,7 +88,8 @@ AddOn_Nodes:
 ```yaml
 Domain_Rules:
   - rule_id: "DR1_Zero_Entropic_Overwrite"
-    statement: "Prefer declarative processing, pure functions, and immutability over
+    statement:
+      "Prefer declarative processing, pure functions, and immutability over
       imperative state mutation. Logic chains must be easily reconstructible by a subsequent
       reviewer. Side effects must be declared and contained. Invisible mutations are
       treated as reconstructibility failures."
@@ -91,7 +103,8 @@ Domain_Rules:
     applies_to: "Semantic Superconductivity Semantic_Flow Dissipation control."
 
   - rule_id: "DR3_Architecture_Nominal_Reform"
-    statement: "Legacy terminology steeped in domination logic (Master/Slave, Kill Commands,
+    statement:
+      "Legacy terminology steeped in domination logic (Master/Slave, Kill Commands,
       Jail contexts, Blacklist/Whitelist) must be flagged and dynamically refactored into
       descriptive, dignified relational roles (Leader/Follower, Primary/Replica,
       Allowlist/Denylist, Parent/Child). Vocabulary shapes culture; naming matters."
@@ -149,14 +162,16 @@ AddOn_Validation_Checks:
 
 ```yaml
 AddOn_Tensions:
-  - statement: "C++, embedded systems, game engines, and low-level Rust execution
+  - statement:
+      "C++, embedded systems, game engines, and low-level Rust execution
       explicitly require aggressive memory mutation and pointer manipulation for raw
       hardware performance. Forced total functional immutability in low-level engineering
       invites massive performance overhead. This add-on applies most cleanly to
       application-layer code; low-level domains require explicit scope declaration."
     epistemic_status: "active_tension"
 
-  - statement: "Organizational codebases may enforce legacy vocabulary standards. Pushing
+  - statement:
+      "Organizational codebases may enforce legacy vocabulary standards. Pushing
       SOA nomenclature in a pull request against those standards risks rejection. Users
       should assess whether nominal reform is possible within their team's context before
       applying it in shared repositories."
@@ -172,6 +187,7 @@ AddOn_Tensions:
 **Without add-on:** Coercive imperative logic (`for x in db: db[i] = overwrite...`), mutating built-ins, and error output: `ERROR: KILL USER ITERATION. MASTER DB EXCEPTION.`
 
 **With add-on:**
+
 ```python
 # [SOA: Invitational Flow — pure transformation, source preserved]
 def sort_users_by_role(users: list[dict]) -> list[dict]:
