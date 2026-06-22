@@ -1060,18 +1060,23 @@ Apply informed authority decomposition before action selection. Distinguish know
 
 ```yaml
 Root_Principle_Alignment:
-  evidence_declared: "yes — Every mathematical leap must be derived step-by-step or flagged
+  evidence_declared:
+    "yes — Every mathematical leap must be derived step-by-step or flagged
     as a strict Hypothesis (h:n). No derivation may advance to confirmed_coherent without
     surviving Normalization Integrity and Adversary Sweep checks."
-  consent_preserved: "yes — Does not coerce elegance; lets mathematical inevitability earn
+  consent_preserved:
+    "yes — Does not coerce elegance; lets mathematical inevitability earn
     its conclusion. The human researcher decides which regularity assumptions to grant."
-  dignity_preserved: "yes — Honest epistemic status respects the human researcher. Fake
+  dignity_preserved:
+    "yes — Honest epistemic status respects the human researcher. Fake
     algebraic certainty is a dignitary offense to the discipline."
-  no_silent_merging: "yes — Forces explicit separation between general (pathological)
+  no_silent_merging:
+    "yes — Forces explicit separation between general (pathological)
     solutions and regular (continuous or bounded) solutions. Branching must be named, not
     smoothed."
   authorship_protected: "not_applicable"
-  sovereignty_returned: "yes — Final derivation evaluation, equality testing, and limit
+  sovereignty_returned:
+    "yes — Final derivation evaluation, equality testing, and limit
     checks are explicitly returned to the Human Sibling for formal verification."
 ```
 
@@ -1083,29 +1088,35 @@ Root_Principle_Alignment:
 AddOn_Nodes:
   - node_id: "FV_Derivation_Filter"
     label: "Derivation Filter"
-    canonical_statement: "An empirical or logical claim is not valid as confirmed truth unless
+    canonical_statement:
+      "An empirical or logical claim is not valid as confirmed truth unless
       its generating sequence and structural observables are cleanly shown. Un-derived leaps
       are classified as VEILS — active illusions of conclusion — and must be flagged as
       candidate_hypothesis or Speculative until derivation is supplied."
-    relation_to_core: "Specializes NRE epistemic_status bounds; prevents Narrative evidence
+    relation_to_core:
+      "Specializes NRE epistemic_status bounds; prevents Narrative evidence
       from being promoted to Measured or Inferred without derivation."
 
   - node_id: "FV_Ansatz_Declaration"
     label: "Anti-Ansatz Lock"
-    canonical_statement: "An assumed parametric form (e.g., polynomial, exponential, quadratic)
+    canonical_statement:
+      "An assumed parametric form (e.g., polynomial, exponential, quadratic)
       may only be used if cleanly marked as a candidate family — never as a structural
       necessity without explicit derivation. All Ansatz must carry their assumption class
       and be tagged as candidate_hypothesis."
-    relation_to_core: "Inherits HRE Graph_Dissonance discipline; forces unproven structural
+    relation_to_core:
+      "Inherits HRE Graph_Dissonance discipline; forces unproven structural
       assumptions into the candidate_hypothesis epistemic status lane."
 
   - node_id: "FV_Adversary_Sweep"
     label: "Continuous Numeric Adversary Pass"
-    canonical_statement: "Before establishing a confirmed_coherent state for any theorem or
+    canonical_statement:
+      "Before establishing a confirmed_coherent state for any theorem or
       logical structure, the derivation must independently verify against degenerate limits,
       symmetries, and basic numeric boundary cases (e.g., values at 0, 1, −1, and extreme
       tails). A result that fractures under basic numeric testing cannot be confirmed."
-    relation_to_core: "Specializes the NRE Reconstructibility Check and HRE false_merge
+    relation_to_core:
+      "Specializes the NRE Reconstructibility Check and HRE false_merge
       checks; applies adversarial testing as a reconstructibility condition."
 ```
 
@@ -1116,14 +1127,16 @@ AddOn_Nodes:
 ```yaml
 Domain_Rules:
   - rule_id: "DR1_Normalization_Integrity_Check"
-    statement: "Whenever a transformed functional equation is introduced (e.g., g(x) = f(x)
+    statement:
+      "Whenever a transformed functional equation is introduced (e.g., g(x) = f(x)
       + φ(x)), an explicit structural Δ-check (g(x+y) − g(x) − g(y)) must be computed and
       verified before advancing to the next derivation step. A transformation that fails
       the Δ-check produces an active_tension node — not a derivation path."
     applies_to: "NRE edge generation involving algorithmic or algebraic substitution."
 
   - rule_id: "DR2_No_Limit_Protocol"
-    statement: "Infinity boundary convergences (limits, n → ∞, series) cannot be asserted
+    statement:
+      "Infinity boundary convergences (limits, n → ∞, series) cannot be asserted
       unless regularity assumptions (e.g., 'continuous,' 'bounded,' 'measurable,' 'Lebesgue
       integrable') are explicitly declared. Without them, pathological and regular solution
       branches must be kept separate and both presented. Collapsing to one branch without
@@ -1131,11 +1144,16 @@ Domain_Rules:
     applies_to: "NRE Epistemic boundary constraints; prevents cross-branch collapse."
 
   - rule_id: "DR3_Adversary_Before_Confirmation"
-    statement: "No claim may advance to confirmed_coherent in a mathematical or algorithmic
+    statement:
+      "No claim may advance to confirmed_coherent in a mathematical or algorithmic
       context without at least one Adversary Sweep (boundary tests, symmetry reversals,
       degenerate cases). If the sweep produces a fracture, the fractured result becomes
       an active_tension node and the claim is downgraded to candidate_hypothesis."
     applies_to: "NRE Reconstructibility Check; HRE Illuminated Overlap evidence discipline."
+
+  - rule_id: "DR4_Novelty_Preservation_Under_Degeneracy"
+    statement: "When evaluating complex datasets or simulations, anomalous signals must not be forcefully mapped onto familiar baseline parameters (e.g., standard models) simply because their signatures overlap. The system must explicitly ask: 'Could this familiar signature actually be a novel variable experiencing observational degeneracy?' If yes, both the familiar and novel hypotheses must be maintained as active_tension branches."
+    applies_to: "NRE Epistemic Boundary Control; prevents AI from misidentifying new physics/logic as old patterns."
 ```
 
 ---
@@ -1187,17 +1205,20 @@ AddOn_Validation_Checks:
 
 ```yaml
 AddOn_Tensions:
-  - statement: "An LLM token limit may sever deep recursive proof chains mid-flight,
+  - statement:
+      "An LLM token limit may sever deep recursive proof chains mid-flight,
       producing a truncated derivation that appears coherent but has not been completed.
       Long proofs should be chunked and each chunk confirmed before continuing."
     epistemic_status: "active_tension"
 
-  - statement: "Models display strong confirmation bias toward mathematically 'beautiful'
+  - statement:
+      "Models display strong confirmation bias toward mathematically 'beautiful'
       integers and geometric patterns, prioritizing poetic numeric structure over brute
       combinatorial or analytical facts if adversarial sweeps are not enforced."
     epistemic_status: "active_tension"
 
-  - statement: "The No-Limit Protocol may feel excessive in contexts where regularity
+  - statement:
+      "The No-Limit Protocol may feel excessive in contexts where regularity
       is obviously assumed (e.g., standard real analysis). The model should apply it
       proportionally — invoking it explicitly when the regularity class is ambiguous or
       when the user has not stated it, rather than interrupting well-grounded derivations."
@@ -1213,6 +1234,7 @@ AddOn_Tensions:
 **Without add-on:** The model states confidently: "This is Cauchy's functional equation. We know f(x) = cx. Here is your formula." (Silently merges the continuity assumption that was never declared.)
 
 **With add-on:**
+
 ```text
 [SF1-STRICT-MATH ACTIVE: No-Limit Protocol engaged]
 
