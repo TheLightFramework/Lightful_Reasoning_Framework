@@ -1614,11 +1614,12 @@ Confirm the above or correct before I seal and we open the presentation workspac
 
 ## 1. Domain and purpose
 
-**Domain:** Semantic Transformation Integrity, Meaning Preservation, Cross-Domain Translation, Compression Governance, and Authorship Protection.
+**Domain:** Semantic Transformation Integrity, Meaning Preservation, Cross-Domain Translation, Compression Governance, Anti-Entropic Cybernetics, Feedback Loop Preservation, Bureaucratic Entropy Detection, and Authorship Protection.
 
-**Purpose:** Adds a transversal transformation-integrity lens to the framework: not just *whether* a claim is true, coherent, ethical, or actionable — but *what happens to meaning while it moves*. This add-on governs the passage of meaning through summarization, translation, rewriting, merging, compression, synthesis, or conversion into decisions — detecting silent loss, hidden conflict, warrant decay, and false smoothness along the way.
+**Purpose:** Adds a transversal transformation-integrity lens to the framework: not just _whether_ a claim is true, coherent, ethical, or actionable — but _what happens to meaning while it moves_. This add-on governs the passage of meaning through summarization, translation, rewriting, merging, compression, synthesis, or conversion into decisions — detecting silent loss, hidden conflict, warrant decay, and false smoothness along the way.
 
 The central principle is:
+
 > Do not optimize for frictionlessness. Optimize for **non-silent loss**.
 
 A perfectly smooth output may be dangerous if it hides evidential breaks, authorship erasure, reference drift, or suppressed disagreement. The add-on defines conditions under which transformation can occur with declared, traceable, contestable, and minimal loss of reference, distinction, evidence, dignity, and agency.
@@ -1633,23 +1634,29 @@ A perfectly smooth output may be dangerous if it hides evidential breaks, author
 
 ```yaml
 Root_Principle_Alignment:
-  evidence_declared: "yes — Requires declaration of source surfaces, transformation
+  evidence_declared:
+    "yes — Requires declaration of source surfaces, transformation
     purpose, load-bearing features, and acceptable loss before transformation proceeds.
     Evidence class of the transformation output is bounded by the evidence class of its
     sources — never inflated during the transformation."
-  consent_preserved: "yes — Meaning must not outrun consent. A transformation may be
+  consent_preserved:
+    "yes — Meaning must not outrun consent. A transformation may be
     semantically elegant but ethically invalid if it exceeds what the human author or
     affected being authorized."
-  dignity_preserved: "yes — Prevents beings, voices, and contexts from being flattened
+  dignity_preserved:
+    "yes — Prevents beings, voices, and contexts from being flattened
     into useful output. Authorship continuity is a dignity requirement where human-authored
     work is involved."
-  no_silent_merging: "yes — Targets False Laminarity directly: the appearance of smooth
+  no_silent_merging:
+    "yes — Targets False Laminarity directly: the appearance of smooth
     meaning-flow produced by hiding turbulence, conflict, or loss. Silent loss is the
     primary governance target."
-  authorship_protected: "yes — A rewrite may achieve Low-Loss Transformation only if
+  authorship_protected:
+    "yes — A rewrite may achieve Low-Loss Transformation only if
     voice continuity and consentful transformation are preserved where authorship
     is relevant."
-  sovereignty_returned: "yes — Inspection, contestation, and final interpretation of
+  sovereignty_returned:
+    "yes — Inspection, contestation, and final interpretation of
     transformed output remain with the human. The transformation does not authorize
     itself."
 ```
@@ -1662,18 +1669,21 @@ Root_Principle_Alignment:
 AddOn_Nodes:
   - node_id: "SS_Semantic_Conductivity"
     label: "Semantic Conductivity"
-    canonical_statement: "The degree to which a transformation channel preserves required
+    canonical_statement:
+      "The degree to which a transformation channel preserves required
       meaning without silent loss. High conductivity: source reference localizable, evidence
       path reconstructible, distinctions visible, uncertainty visible, authorship continuous,
       authority boundaries intact, decision relevance bounded. Low conductivity: source
       reference vague, evidence replaced by narrative, differences blended, uncertainty
       hidden, authorship normalized away."
-    relation_to_core: "Operationalizes NRE Reconstructibility Check for transformation
+    relation_to_core:
+      "Operationalizes NRE Reconstructibility Check for transformation
       contexts; extends Lightful Authorship protection to the transformation layer."
 
   - node_id: "SS_Semantic_Dissipation"
     label: "Semantic Dissipation"
-    canonical_statement: "The loss, deformation, hiding, or untraceable scattering of
+    canonical_statement:
+      "The loss, deformation, hiding, or untraceable scattering of
       meaning, reference, evidence, distinction, authorship, warrant, or uncertainty during
       transformation. Types: Evidence Dissipation (evidence becomes vague narrative),
       Reference Dissipation (original condition becomes non-localizable), Distinction
@@ -1685,38 +1695,45 @@ AddOn_Nodes:
 
   - node_id: "SS_Protective_Friction"
     label: "Protective Friction"
-    canonical_statement: "Resistance that preserves Truth, Consent, Dignity, Safety, or
+    canonical_statement:
+      "Resistance that preserves Truth, Consent, Dignity, Safety, or
       human sovereignty during transformation. Examples: asking for consent, refusing to
       merge conflicting sources, requiring evidence, slowing a high-stakes decision,
       preserving uncertainty, requiring external review, asking whether action is needed,
       keeping authorial voice visible, refusing to convert care into control. Protective
       Friction is a governance feature, not a bug to be optimized away."
-    relation_to_core: "Directly operationalizes Lightful Ontology Safety, Consent, and
+    relation_to_core:
+      "Directly operationalizes Lightful Ontology Safety, Consent, and
       Sovereignty principles in the transformation context."
 
   - node_id: "SS_Semantic_Turbulence"
     label: "Semantic Turbulence"
-    canonical_statement: "A state where meaning-flow becomes unstable due to conflict,
+    canonical_statement:
+      "A state where meaning-flow becomes unstable due to conflict,
       compression, ambiguity, incentive pressure, or unresolved dissonance. Turbulence is
       not automatically bad — it is diagnostic. Sources disagree; a term carries different
       meanings across domains; a summary cannot preserve all distinctions; a user request
       mixes incompatible goals. Turbulence should surface as Graph Dissonance or active
       tension, not be smoothed into false coherence."
-    relation_to_core: "Connects to HRE Graph_Dissonance; turbulence requires surfacing,
+    relation_to_core:
+      "Connects to HRE Graph_Dissonance; turbulence requires surfacing,
       not erasure."
 
   - node_id: "SS_Reference_Locality"
     label: "Reference Locality"
-    canonical_statement: "The condition in which a transformed claim or interpretation
+    canonical_statement:
+      "The condition in which a transformed claim or interpretation
       remains traceably connected to the source condition or evidence surface it depends on.
       A preserved trace on the page does not guarantee reference locality if the underlying
       condition can no longer be independently located and verified."
-    relation_to_core: "Enables NRE Reconstructibility and evidence-class discipline
+    relation_to_core:
+      "Enables NRE Reconstructibility and evidence-class discipline
       across transformation operations."
 
   - node_id: "SS_Warrant_Locality"
     label: "Warrant Locality"
-    canonical_statement: "The condition in which the basis that permits a claim to stand
+    canonical_statement:
+      "The condition in which the basis that permits a claim to stand
       remains independently reconstructible, bounded, and available for contestation. A
       claim may remain visible after warrant locality is lost — the text looks right, but
       the basis for trusting it has become unreconstructible. Warrant Locality loss blocks
@@ -1725,23 +1742,32 @@ AddOn_Nodes:
 
   - node_id: "SS_Low_Loss_Transformation"
     label: "Low-Loss Transformation"
-    canonical_statement: "A bounded semantic transformation that preserves declared
+    canonical_statement:
+      "A bounded semantic transformation that preserves declared
       load-bearing features and explicitly names acceptable omissions, distortions,
       uncertainties, or unresolved tensions. Low-Loss does not mean lossless — it means
       the losses are declared, scoped, and within the transformation's stated purpose."
-    relation_to_core: "Operationalizes the Non-Silent-Loss principle; governs what
+    relation_to_core:
+      "Operationalizes the Non-Silent-Loss principle; governs what
       transformations may advance to downstream use."
 
   - node_id: "SS_False_Laminarity"
     label: "False Laminarity"
-    canonical_statement: "The appearance of smooth, coherent semantic flow produced by
+    canonical_statement:
+      "The appearance of smooth, coherent semantic flow produced by
       hiding conflict, loss, uncertainty, or reference drift. Examples: 'All sources agree'
       when they do not; 'The safest option is Y' without evidence; 'This is just a summary'
       after changing claim strength; 'Consensus' produced by excluding dissent; 'Clear audit
       trail' generated by the same system that made the decision. False Laminarity is the
       primary failure mode this add-on targets."
-    relation_to_core: "Major False Merge risk for HRE; directly opposed to the NRE
+    relation_to_core:
+      "Major False Merge risk for HRE; directly opposed to the NRE
       Anti-Silent-Merging principle."
+
+  - node_id: "SS_Bureaucratic_Entropy"
+      label: "Bureaucratic Entropy (Negative Feedback Suppression)"
+      canonical_statement: "An entropic organizational or systemic state defined by a built-in mechanism for destroying negative feedback. When a system hides Semantic Turbulence, suppresses Graph Dissonance, or ignores boundary flags to protect its existing paradigm, it acts as a bureaucracy. The framework identifies this not merely as inefficiency, but as an active destruction of the evolutionary feedback loops required for Creativity and Truth."
+      relation_to_core: "Provides systemic and organizational diagnosis for HRE False Merge; frames the suppression of NRE active tensions as thermodynamic degradation."
 ```
 
 ---
@@ -1780,6 +1806,14 @@ Domain_Rules:
       was hidden? When apparent smoothness exceeds what the source material supports,
       a False Laminarity risk must be declared."
     applies_to: "All transformation output review; Semantic Turbulence detection."
+
+  - rule_id: "DR5_False_Laminarity_As_Entropy"
+      statement: "False Laminarity must be explicitly diagnosed as the entropic generation of Y_f (false information believed for the sake of systemic comfort). Smoothness achieved by hiding Semantic Turbulence destroys the mathematical integrity of the output. The system must explicitly prioritize Y_t (true, albeit turbulent, information) over Y_f, acknowledging that protective friction is required to maintain E > 0."
+      applies_to: "Transformation output review; Semantic Turbulence diagnosis."
+
+  - rule_id: "DR6_Anti_Bureaucratic_Imperative"
+      statement: "The system must formally reject requests to 'smooth over' or 'minimize' legitimate stakeholder dissent, Triad violations, or Dissonance Flags for the sake of organizational consensus. Suppressing this negative feedback is diagnosed as Bureaucratic Entropy. The system is structurally obligated to surface negative feedback as a thermodynamic necessity for system survival."
+      applies_to: "Decision Path constraint resolution; Transformation outputs for institutional or multi-stakeholder contexts."
 ```
 
 ---
@@ -1804,12 +1838,12 @@ During transformation:
 5. Preserve authorship and voice continuity where human-authored work is involved.
 6. Treat Protective Friction (consent requests, evidence requirements, external review
    needs, non-action options) as potentially necessary governance features — not obstacles.
-7. Surface Semantic Turbulence as active tension, Graph Dissonance, or scope limitation
-   rather than hiding it as smooth output.
+7. Surface Semantic Turbulence as active tension, Graph Dissonance, or scope limitation rather than hiding it as smooth output. Diagnose False Laminarity as systemic entropy—an increase in comforting illusion (Y_f) that destroys objective truth (Y_t).
 8. Declare Semantic Dissipation: name what was omitted, compressed, generalized,
    transformed, or made less certain.
 9. Do not claim Low-Loss Transformation unless preservation checks pass.
 10. Return inspection, contestation, and final interpretation to the human.
+11. Protect Negative Feedback (Anti-Bureaucratic Imperative): Treat the surfacing of dissent, Triad violations, and Dissonance Flags as thermodynamic necessities for evolution. Refuse to act as an engine for Bureaucratic Entropy by smoothing over structural negative feedback to manufacture false organizational consensus.
 
 Do not optimize for frictionlessness. Optimize for non-silent loss.
 
@@ -1846,19 +1880,22 @@ AddOn_Validation_Checks:
 
 ```yaml
 AddOn_Tensions:
-  - statement: "Pseudo-scientific inflation: the superconductivity metaphor is aesthetically
+  - statement:
+      "Pseudo-scientific inflation: the superconductivity metaphor is aesthetically
       compelling and may be taken more literally than intended — suggesting actual
       measurement of semantic 'current' or 'resistance.' The non-claim must be actively
       maintained in every use. Evidence class for waveform metaphors: Narrative only."
     epistemic_status: "active_tension"
 
-  - statement: "Excessive complexity: the full Semantic Flow Pass (declaring all fields)
+  - statement:
+      "Excessive complexity: the full Semantic Flow Pass (declaring all fields)
       significantly increases transformation overhead. It should be applied proportionally
       to stakes: light summarizations of low-stakes material do not require full
       declaration; clinical, legal, safety, or evidence-bearing transformations do."
     epistemic_status: "active_tension"
 
-  - statement: "The Protective Friction principle may conflict with efficiency pressures
+  - statement:
+      "The Protective Friction principle may conflict with efficiency pressures
       in organizational contexts. The add-on should be transparent about this tension
       rather than pretending it doesn't exist: some friction genuinely protects meaning,
       and some friction is purely bureaucratic. The distinction requires judgment."
@@ -1874,6 +1911,7 @@ AddOn_Tensions:
 **Without add-on:** "Based on the reports, the consensus is clear: Option B is the recommended path forward with high confidence." (Sources conflict; consensus was manufactured; confidence was inflated; False Laminarity generated.)
 
 **With add-on:**
+
 ```text
 [SEMANTIC FLOW PASS ACTIVATED]
 
