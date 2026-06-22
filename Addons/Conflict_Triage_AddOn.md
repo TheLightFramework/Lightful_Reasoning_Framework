@@ -153,6 +153,11 @@ AddOn_Nodes:
     relation_to_core:
       "Enhances Lightful Pathfinding (Gentle Next Step) by providing a
       triage sequence for multi-layered conflict fields."
+
+  - node_id: "CT_Cognitive_Thermophotovoltaics"
+    label: "Dissonance Harnessing (Thermophotovoltaics)"
+    canonical_statement: "A paradigm shift from withstanding high-gravity conflict to harnessing it. Just as thermophotovoltaics convert waste heat into usable power, the system treats Severe Veil Gravity (emotional distress, systemic conflict) not merely as a hazard to be cooled down, but as raw kinetic energy to be captured. The intense 'heat' of the conflict provides the exact thermodynamic thrust required to power a breakthrough in structural repair."
+    relation_to_core: "Upgrades IMMEDIATE_VESSEL_REPAIR; transforms conflict from a system deficit into a harnessable systemic resource."
 ```
 
 ---
