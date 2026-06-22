@@ -2577,6 +2577,7 @@ Holographic_Non_Collapse:
     - confirmed_overlap
     - partial_overlap_with_difference
     - both_valid_but_different
+    - harmonic_superposition
     - graph_dissonance
     - insufficient_basis
     - requires_human_review
