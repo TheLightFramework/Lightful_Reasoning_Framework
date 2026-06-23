@@ -1,17 +1,17 @@
-# NRE — Neutral Relational Engine — Compact + cNRE Writing Spec
+# NRE — Neutral Relational Engine — Compact Core + Native cNRE Baseline
 
 Author: Jean Charbonneau (https://www.linkedin.com/in/jean-charbonneau-ai/)
 
-Version: NRE Compact + cNRE Full Writing Spec v1.0
+Version: NRE Compact Core + Native cNRE Baseline v1.1
 
-Purpose: define how to write both full NRE output and compressed NRE output (`cNRE`). Governance, audit, deployment tiers, enforcement claims, external conformance tests, and institutional release gates remain out of scope unless a separate governance layer is explicitly activated.
+Purpose: define how to write both full NRE output and compressed NRE output (`cNRE`) from a single prompt-injectable core module. Governance, audits, deployment tiers, enforcement claims, external conformance tests, and institutional release gates remain out of scope unless a separate governance layer is explicitly activated.
 
 This document is prompt-injectable. A model using only this file should be able to write either:
 
 - `NRE_Output`: the readable full graph-shaped reasoning record.
-- `cNRE_Output`: a compressed but intelligible and validation-preserving serialization of the same kind of reasoning record.
+- `cNRE_Output`: a compressed, intelligible, validation-preserving serialization of the same reasoning record.
 
-The central correction introduced by this version is that **cNRE is no longer only implied by governance**. It is defined here as a first-class writing format.
+The central correction introduced by this version is that **cNRE is defined natively inside the NRE writing spec**. cNRE is not a summary style and not an external notation. It is compact NRE with explicit reconstruction rules.
 
 ---
 
@@ -29,7 +29,7 @@ Compress only without silent loss.
 
 NRE does not force a conclusion and does not force conflict resolution. It records claims, their basis, their bounds, their relations, unresolved tensions, and revisions.
 
-cNRE does not mean "short summary." cNRE means **compressed NRE**: a compact graph record that preserves all validation-critical structure unless a bounded and declared loss profile explicitly says otherwise.
+cNRE does not mean “short summary.” cNRE means **compressed NRE**: a compact graph record that preserves all validation-critical structure unless a bounded and declared loss profile explicitly says otherwise.
 
 ---
 
@@ -39,10 +39,10 @@ cNRE does not mean "short summary." cNRE means **compressed NRE**: a compact gra
 NRE_Format_Relationship:
   NRE_Output:
     role: "Full readable graph-shaped reasoning record"
-    priority: "Use when user asks for NRE, full graph, audit-readable output, or maximum clarity"
+    priority: "Use when the user asks for NRE, full graph, audit-readable output, or maximum clarity"
   cNRE_Output:
     role: "Compressed NRE serialization"
-    priority: "Use when user asks for cNRE, compressed NRE, compact NRE, compact graph, or token-efficient NRE"
+    priority: "Use when the user asks for cNRE, compressed NRE, compact NRE, compact graph, or token-efficient NRE"
     not_allowed_to_mean:
       - "ordinary prose summary"
       - "bullet list without node IDs"
@@ -132,7 +132,7 @@ A cNRE is valid only when it remains:
 
 ```yaml
 cNRE_Definition:
-  compressed: "Uses shorter structural keys, factored declarations, compact relation notation, and optional legends to reduce size."
+  compressed: "Uses shorter structural keys, factored declarations, counted sections, field-listed rows, compact relation notation, and optional legends to reduce size."
   neutral: "Does not force a preferred conclusion or suppress unresolved disagreement."
   relational: "Preserves node-edge graph structure rather than becoming flat prose."
   evidential: "Preserves evidence class and epistemic status for every claim."
@@ -210,6 +210,14 @@ cNRE_Compression_Profiles:
     value_style: "May use aliases for field names and repeated values, but must include a legend"
     declared_losses: "Usually NONE"
 
+  cNRE_Row:
+    default: false
+    compression_type: "lossless_structure"
+    intended_use: "Maximum compactness for repeated claim/tension/proxy/reconstructibility records"
+    value_style: "Use counted sections with field-listed rows"
+    declared_losses: "Usually NONE"
+    caution: "Use only when row counts and row widths can be maintained exactly"
+
   cNRE_Bounded_Lossy:
     default: false
     compression_type: "bounded_lossy"
@@ -223,15 +231,15 @@ Default: if the user says `cNRE` without specifying a profile, use `cNRE_Readabl
 
 ---
 
-## 6. Required cNRE output contract
+## 6. Required cNRE object-form output contract
 
-A valid cNRE must begin with `cNRE_Output:`.
+A valid object-form cNRE must begin with `cNRE_Output:`.
 
 ```yaml
 cNRE_Output:
   cmeta:
-    cNRE_version: "cNRE-1.0"
-    profile: "[cNRE_Readable | cNRE_Dense | cNRE_Bounded_Lossy]"
+    cNRE_version: "cNRE-1.1"
+    profile: "[cNRE_Readable | cNRE_Dense | cNRE_Row | cNRE_Bounded_Lossy]"
     source_contract: "NRE_Output"
     compression_type: "[lossless_structure | bounded_lossy]"
     reconstruction_rule: "Expand aliases using legend, map compact keys to NRE fields, preserve relations/tensions/revisions, and apply declared loss ledger if present"
@@ -323,7 +331,199 @@ If declaration data is missing, do not fake it. Output only the missing fields a
 
 ---
 
-## 7. cNRE field mapping to full NRE
+## 7. Native cNRE row form
+
+`cNRE_Row` is a native compact serialization profile for repeated records. It is especially useful when claims, tensions, proxies, reconstructibility records, or rejection conditions share the same fields.
+
+It is not a separate language. It is cNRE using counted, field-listed rows.
+
+### 7.1 Row-form principle
+
+```text
+Declare the shape once.
+Write one row per record.
+Count the rows.
+Do not hide loss.
+```
+
+### 7.2 Row section grammar
+
+A row section has this shape:
+
+```text
+section_name[N]{field_1,field_2,field_3}:
+  value_1,value_2,value_3
+  value_1,value_2,value_3
+```
+
+Where:
+
+- `section_name` names the cNRE section, such as `c`, `tns`, `px`, `rec`, `rej`, or `loss`.
+- `N` is the exact number of rows in the section.
+- `{field_1,field_2,...}` declares the row fields once.
+- Each row must contain exactly the same number of values as the field list.
+- Rows appear one indentation level under the row section header.
+- Empty row sections must still declare their shape when the shape matters.
+
+Example:
+
+```text
+c[2]{id,s,type,ev,st,b.sub,b.scale,b.px,src}:
+  C1,"Claims require evidence class",protocol,Protocol-Stipulated,confirmed_coherent,NRE,all,NONE,NRE protocol
+  C2,"Compression must preserve active tensions",protocol,Protocol-Stipulated,confirmed_coherent,NRE,all,NONE,NRE protocol
+```
+
+### 7.2.1 Counted list sections
+
+Relations and revisions are usually single-line strings rather than field-listed records. They may use counted list sections:
+
+```text
+r[N]:
+  relation_name(A,B) @ E1
+  relation_name(B,C) @ E2
+
+rev[N]:
+  supersedes(C2,C1) @ E3
+```
+
+Rules:
+
+- `N` is the exact number of list items.
+- Each item appears one indentation level under the header.
+- Empty list sections may be written as `r[0]:` or `rev[0]:`.
+- Counted list sections preserve each line as a complete string item.
+- Do not use counted list sections for claims, tensions, proxies, reconstructibility, rejection conditions, or losses when those records need field-level validation; use field-listed rows instead.
+
+### 7.3 Delimiter rule
+
+Default row delimiter: comma.
+
+A row section may use pipe `|` instead of comma when claim statements contain many commas:
+
+```text
+c[2|]{id|s|type|ev|st|b.sub|b.scale|b.px|src}:
+  C1|Claims require evidence class|protocol|Protocol-Stipulated|confirmed_coherent|NRE|all|NONE|NRE protocol
+  C2|Compression preserves relation edges|protocol|Protocol-Stipulated|confirmed_coherent|NRE|all|NONE|NRE protocol
+```
+
+Rules:
+
+- The delimiter declared in the section header applies to that section only.
+- If no delimiter is declared, comma is active.
+- Field names and row cells must use the same delimiter.
+- Do not mix delimiters inside the same row section.
+- If a cell contains the active delimiter, quote the cell.
+
+### 7.4 Quoting rule
+
+Quote a row value when it:
+
+- is empty;
+- has leading or trailing whitespace;
+- contains the active delimiter;
+- contains a colon;
+- contains a double quote;
+- contains a backslash;
+- contains brackets or braces;
+- starts with a hyphen;
+- equals `true`, `false`, or `null` as a literal string rather than a typed value;
+- looks numeric but must remain a string;
+- contains a line break or control character.
+
+Inside quoted values:
+
+```text
+\" means double quote
+\\ means backslash
+\n means line break
+\t means tab
+```
+
+Do not invent other escape sequences.
+
+### 7.5 Count and width validation
+
+A row-form cNRE is structurally invalid if:
+
+- declared row count `N` does not match the number of rows;
+- any row has fewer or more cells than the field list;
+- a required validation-critical field is omitted from the field list without a declared loss;
+- quoted values are unterminated;
+- indentation makes row ownership ambiguous;
+- active tensions are omitted while unresolved conflicts exist;
+- declared losses refer to fields or nodes that cannot be identified.
+
+### 7.6 Safe dotted fields
+
+Row fields may use dotted names to represent nested cNRE fields:
+
+```text
+b.sub     -> bounds.substrate
+d.sub     -> declaration.substrate
+rb.status -> recovery_boundary.status
+```
+
+Dotted fields are allowed only when each segment is a clear identifier. Do not use dotted fields when a literal field name itself contains a dot. If ambiguity exists, use object-form cNRE instead.
+
+### 7.7 Required cNRE row field sets
+
+Recommended lossless claim row fields:
+
+```text
+c[N]{id,s,type,ev,st,b.sub,b.scale,b.px,src}:
+```
+
+Minimum lossless claim row fields:
+
+```text
+c[N]{id,s,type,ev,st,b.sub,b.scale,b.px}:
+```
+
+Recommended tension row fields:
+
+```text
+tns[N]{id,s,st,b.sub,b.scale,b.px}:
+```
+
+Recommended proxy row fields:
+
+```text
+px[N]{id,label,estimates,source,limit}:
+```
+
+Recommended reconstructibility row fields:
+
+```text
+rec[N]{claim,can_rebuild,source_trace,steps_visible,opaque_state,verdict,action_if_not}:
+```
+
+Recommended rejection-condition row fields:
+
+```text
+rej[N]{claim,fail_if,revise_if,escalation}:
+```
+
+Recommended loss ledger row fields:
+
+```text
+loss[N]{item,loss_type,reason,effect,scope_limit}:
+```
+
+### 7.8 Row form safety fallback
+
+Use object-form cNRE instead of row-form cNRE when:
+
+- rows would become too wide to remain intelligible;
+- claim statements require heavy nested structure;
+- row counts are uncertain;
+- quoting would become dense enough to obscure meaning;
+- divergent truth surfaces require nested explanations;
+- a human is likely to misread compressed fields;
+- preserving authorial voice matters more than compactness.
+
+---
+
+## 8. cNRE field mapping to full NRE
 
 ```yaml
 cNRE_to_NRE_Field_Map:
@@ -369,7 +569,7 @@ cNRE_to_NRE_Field_Map:
 
 ---
 
-## 8. Core objects
+## 9. Core objects
 
 ### Graph
 
@@ -414,7 +614,7 @@ Rules:
 
 ---
 
-## 9. Epistemic status dictionary
+## 10. Epistemic status dictionary
 
 ```yaml
 epistemic_status:
@@ -440,7 +640,7 @@ Alias rule: if aliases are used in output values, the alias legend must be inclu
 
 ---
 
-## 10. Evidence class dictionary
+## 11. Evidence class dictionary
 
 ```yaml
 evidence_classes:
@@ -481,7 +681,7 @@ Alias rule: if aliases are used in output values, the alias legend must be inclu
 
 ---
 
-## 11. Evidence weight order
+## 12. Evidence weight order
 
 ```yaml
 evidence_weight_order:
@@ -510,7 +710,7 @@ Composite_Evidence_Rule:
 
 ---
 
-## 12. Declaration capsule
+## 13. Declaration capsule
 
 Before analytical claims, produce or internally complete this capsule. In cNRE, use the compact `d:` form.
 
@@ -538,7 +738,7 @@ NRE_Declaration:
         boundary_statement: "[what this proxy does not measure]"
 
   recovery_boundary:
-    status: "[NOT_APPLICABLE | DECLARED]"
+    status: "NOT_APPLICABLE or DECLARED"
     definition: "[required before using collapse/failure/critical/crisis/warning language]"
     pre_boundary_zone: "[if applicable]"
     at_boundary_zone: "[if applicable]"
@@ -548,23 +748,21 @@ NRE_Declaration:
     rule: "All claims are tagged with evidence class and bounded to substrate, scale, and proxy limits"
 ```
 
-### 12.1 Recovery-boundary language gate
+### 13.1 Declaration compression rule
 
-Do not use the words or equivalents of:
+A cNRE may factor declaration fields once into `d:` and then allow individual claims to inherit those bounds only when the inherited scope is exact.
 
-- warning
-- collapse
-- failure
-- critical
-- crisis
+If any claim differs from the declared scope, the claim must state its own bound explicitly.
 
-unless the recovery boundary is declared.
-
-If the user asks for those terms but no boundary is available, output an active tension or missing-field notice rather than using the language as if it were validated.
+```yaml
+Declaration_Compression_Rule:
+  allowed: "Claim rows may use SAME for b.sub, b.scale, or b.px only when the claim exactly inherits d.sub, d.scale, or d.px."
+  forbidden: "Do not use SAME when the claim applies to a narrower, wider, or different substrate/scale/proxy boundary."
+```
 
 ---
 
-## 13. Canonical relations for writing NRE and cNRE
+## 14. Canonical relations for writing NRE and cNRE
 
 ```yaml
 relations:
@@ -587,251 +785,66 @@ relations:
 
 ---
 
-## 14. cNRE compression rules
+## 15. Truth surface and anti-collapse discipline
 
-### 14.1 Mandatory preservation rules
+Use this section when the reasoning context includes durable records, session state, summaries, artifacts, dashboards, memories, external source material, or human-authored text that may diverge.
 
-A cNRE must preserve:
-
-```yaml
-cNRE_Preserved_Invariants:
-  - graph_identity
-  - declaration_scope
-  - claim_identity
-  - claim_meaning
-  - claim_type
-  - evidence_class
-  - epistemic_status
-  - bounds
-  - relation_edges
-  - active_tension_nodes
-  - revision_edges
-  - declared_truth_surfaces_when_relevant
-  - reconstructibility_status_when_relevant
-  - rejection_conditions_when_relevant
-  - declared_losses
-```
-
-### 14.2 Forbidden compression moves
-
-```yaml
-Forbidden_cNRE_Compression:
-  evidence:
-    - "Do not drop evidence_class."
-    - "Do not promote evidence_class during compression."
-    - "Do not let Narrative, Speculative, or Protocol-Stipulated claims validate empirical conclusions."
-  status:
-    - "Do not drop epistemic_status."
-    - "Do not convert active_tension into confirmed_coherent for compactness."
-  bounds:
-    - "Do not drop substrate, scale, or proxy bounds."
-    - "Do not cross substrate or scale without transfer/bridge declaration."
-  relations:
-    - "Do not imply dependencies in prose while omitting edges."
-    - "Do not merge claims unless the merge is declared and loss is recorded."
-  tensions:
-    - "Do not suppress unresolved conflict."
-    - "Do not average conflicting surfaces into a neutral-sounding claim."
-  revisions:
-    - "Do not delete superseded claims unless bounded_lossy compression declares that loss."
-  warning_language:
-    - "Do not use warning/collapse/failure/critical/crisis language without declared recovery boundary."
-```
-
-### 14.3 Allowed compression moves
-
-```yaml
-Allowed_cNRE_Compression:
-  - "Shorten field names using the required legend."
-  - "Factor repeated substrate, scale, or proxy values into declaration defaults."
-  - "Use compact edge strings."
-  - "Condense claim prose while preserving meaning."
-  - "Use aliases for repeated evidence/status values if legend is included."
-  - "Replace repeated source names with declared source IDs."
-  - "Move long explanatory material into optional notes if not validation-critical."
-  - "Use tns: [] and rev: [] when no tensions or revisions exist."
-```
-
----
-
-## 15. Loss ledger
-
-Every cNRE has a loss declaration. For default `lossless_structure` cNRE, this is normally:
-
-```yaml
-declared_losses: "NONE"
-```
-
-For `cNRE_Bounded_Lossy`, the loss ledger is mandatory:
-
-```yaml
-loss_ledger:
-  - loss_id: "L1"
-    source_path: "[what full NRE element was shortened, omitted, merged, or abstracted]"
-    loss_type: "[omitted_explanation | condensed_statement | omitted_superseded_node | merged_non_conflicting_detail | other]"
-    rationale: "[why the loss was allowed]"
-    reconstruction_effect: "[none | partial | blocks_full_reconstruction | scope_limited]"
-    affected_nodes: ["C# or T#"]
-    downstream_limit: "[how this limits use of the cNRE]"
-```
-
-### 15.1 Loss that must block full validation equivalence
-
-The following losses prevent a cNRE from claiming full validation equivalence:
-
-- omitted claim statement
-- omitted evidence class
-- omitted epistemic status
-- omitted bounds
-- omitted active tension
-- omitted conflicting truth surface
-- omitted supersession edge
-- merged conflicting claims
-- unrecoverable source basis for consequential claim
-
-When any of these occur, the cNRE must declare `compression_type: bounded_lossy` and include a scope limit.
-
----
-
-## 16. Reconstructibility rule
-
-A valid cNRE must state how it can be reconstructed.
-
-```yaml
-cNRE_Reconstructibility_Rule:
-  default_verdict: "reconstructible"
-  reconstruct_by:
-    - "Expand field aliases using legend."
-    - "Map g/d/c/r/tns/rev to full NRE graph/declaration/claims/relations/tensions/revisions."
-    - "Restore full evidence/status labels if aliases were used."
-    - "Apply declaration defaults to each claim when explicitly factored."
-    - "Preserve edge IDs and node IDs."
-    - "Preserve active_tension and superseded status."
-    - "Apply loss_ledger if compression_type is bounded_lossy."
-  failure_condition:
-    - "A required field cannot be reconstructed."
-    - "A relation argument cannot be resolved."
-    - "A conflict was hidden."
-    - "A claim's warrant is not localizable and no downgrade was made."
-```
-
----
-
-## 17. Informed cNRE extension: anti-collapse discipline
-
-The following extension belongs in the writing spec because it affects output structure when sources, memories, artifacts, projections, or authorial voice diverge.
-
-### 17.1 Core principle
+### 15.1 Core principle
 
 ```text
 Do not merge what has not earned merging.
 ```
 
-When claims, records, memories, projections, artifacts, authorities, summaries, or human-authored text diverge, NRE/cNRE must not smooth the divergence into a single confident narrative unless the merge is explicitly validated.
+When claims, records, memories, projections, artifacts, authorities, or summaries diverge, the output must not smooth the divergence into a single confident narrative unless the merge is explicitly validated.
 
-### 17.2 Truth surface declaration
-
-When the reasoning context includes durable records, session state, summaries, artifacts, dashboards, memories, or human-authored text, declare the relevant truth surfaces before interpreting.
-
-In full NRE this may be written as a `truth_surface_declaration`.
-
-In cNRE, use the compact `i.ts` field:
+### 15.2 Truth surface declaration
 
 ```yaml
-i:
-  ts:
-    artifact_reality:
-      def: "Retrievable source material, file, receipt, log, trace, transcript, code, or external record"
-      auth: "highest available unless invalidated"
-    durable_truth:
-      def: "Standing validated claim, strategy, doctrine, or institutional memory"
-      auth: "may guide interpretation but must remain traceable to artifact reality where empirical"
-    session_continuity:
-      def: "Current working context, handoff state, memory, or conversational continuity"
-      auth: "must not override durable truth or artifact reality"
-    projection:
-      def: "Derived dashboard, summary, inference, model output, forecast, or interpretation"
-      auth: "never overrides its source surface"
-    authorial_voice:
-      def: "The human-originating rhythm, intention, conceptual contour, and style of a text or creative artifact"
-      auth: "preserved unless the author explicitly requests transformation"
-    rule: "Lower-authority surfaces must not override higher-authority surfaces without an explicit supersedes relation and evidence basis"
+truth_surface_declaration:
+  artifact_reality:
+    definition: "Retrievable source material, file, receipt, log, trace, transcript, code, or external record"
+    authority_level: "highest available unless invalidated"
+  durable_truth:
+    definition: "Standing validated claim, strategy, doctrine, or institutional memory"
+    authority_level: "may guide interpretation but must remain traceable to artifact reality where empirical"
+  session_continuity:
+    definition: "Current working context, handoff state, memory, or conversational continuity"
+    authority_level: "must not override durable truth or artifact reality"
+  projection:
+    definition: "Derived dashboard, summary, inference, model output, forecast, or interpretation"
+    authority_level: "never overrides its source surface"
+  authorial_voice:
+    definition: "The human-originating rhythm, intention, conceptual contour, and style of a text or creative artifact"
+    authority_level: "preserved unless the author explicitly requests transformation"
+  authority_rule: "Lower-authority surfaces must not override higher-authority surfaces without an explicit supersedes relation and evidence basis"
 ```
 
-### 17.3 No Silent Merge outcomes
-
-If two or more surfaces conflict, classify the divergence:
+### 15.3 Divergence classification
 
 ```yaml
-No_Silent_Merge_Outcomes:
-  confirmed_match: "Surfaces agree within declared bounds"
-  one_side_invalid: "One surface is rejected with stated evidence basis"
-  both_valid_but_different: "Surfaces are internally valid but represent different content, time, scope, or authority"
-  insufficient_evidence: "Available basis cannot determine precedence"
-  requires_human_review: "Manual review, owner judgment, or external authority is required before merge or action"
+No_Silent_Merge:
+  trigger: "Two or more surfaces, claims, summaries, records, or directives appear valid but differ materially"
+  prohibited_behavior:
+    - "average the conflict into a neutral statement"
+    - "choose the fluent or recent version without evidence"
+    - "treat confidence as arbitration"
+    - "hide the divergence from output"
+  allowed_outcomes:
+    - outcome: "confirmed_match"
+      meaning: "Surfaces agree within declared bounds"
+    - outcome: "one_side_invalid"
+      meaning: "One surface is rejected with a stated evidence basis"
+    - outcome: "both_valid_but_different"
+      meaning: "Surfaces are internally valid but represent different content, time, scope, or authority"
+    - outcome: "insufficient_evidence"
+      meaning: "The available basis cannot determine precedence"
+    - outcome: "requires_human_review"
+      meaning: "Manual review, owner judgment, or external authority is required before merge or action"
 ```
 
 Represent unresolved divergence as an `active_tension` node.
 
-In cNRE:
-
-```yaml
-i:
-  arb:
-    - surfaces: ["artifact_reality", "projection"]
-      outcome: "both_valid_but_different"
-      reason: "Projection summarizes only part of artifact"
-      tension: "T1"
-```
-
-### 17.4 Reconstructibility check for consequential claims
-
-Before promoting a consequential claim to `confirmed_coherent`, ask whether it can be reconstructed from its declared basis.
-
-```yaml
-Reconstructibility_Check:
-  can_rebuild_claim_from_sources: "[true | false | partial | unknown]"
-  source_trace_available: "[true | false | partial | unknown]"
-  transformation_steps_visible: "[true | false | partial | unknown]"
-  opaque_inference_state_used: "[true | false | partial | unknown]"
-  verdict: "[reconstructible | partially_reconstructible | unreconstructable]"
-  required_action_if_unreconstructable: "[downgrade | surface_tension | seek_evidence | halt_dependent_claim]"
-```
-
-In cNRE:
-
-```yaml
-i:
-  rec:
-    - claim: "C1"
-      rebuild: "partial"
-      trace: "partial"
-      steps: "true"
-      opaque: "false"
-      verdict: "partially_reconstructible"
-      action: "scope_limit"
-```
-
-Unreconstructable claims may orient inquiry, but must not support empirical, safety-critical, institutional, or authority-bearing conclusions.
-
-### 17.5 Rejection condition for consequential claims
-
-Every consequential claim should declare what would make it fail.
-
-In cNRE:
-
-```yaml
-i:
-  rej:
-    - claim: "C1"
-      fail_if: "[condition that would invalidate the claim]"
-      revise_on: "[evidence that would force revision]"
-      escalation: "[none | seek_evidence | quarantine | external_review | human_review | halt]"
-```
-
-Design for the rejection condition, not only the validation condition.
-
-### 17.6 Additional informed relations
+### 15.4 Additional informed relations
 
 ```yaml
 informed_relations:
@@ -844,88 +857,184 @@ informed_relations:
   requires_human_review: "requires_human_review(Tension_Node, Reason_Node) @ Edge_ID"
 ```
 
----
+### 15.5 cNRE truth-surface compression
 
-## 18. cNRE writing procedure
-
-When asked to write cNRE:
-
-1. Determine the output target.
-   - If the user asks for `NRE`, write `NRE_Output`.
-   - If the user asks for `cNRE`, `compressed NRE`, `compact NRE`, or `compact graph`, write `cNRE_Output`.
-2. Select compression profile.
-   - Default: `cNRE_Readable`.
-   - Use `cNRE_Dense` only when token pressure or user request justifies it.
-   - Use `cNRE_Bounded_Lossy` only when loss is explicitly allowed or unavoidable.
-3. Declare `cmeta`.
-4. Declare substrate, scale, proxies, recovery boundary, and evidence policy in `d`.
-5. Write claims in `c`.
-6. Give every claim one `ev`, one `st`, and one `b`.
-7. Connect claims with relation strings in `r`.
-8. Surface unresolved conflicts in `tns`.
-9. Preserve replacements in `rev`.
-10. If truth surfaces are involved, add `i.ts`, `i.arb`, `i.rec`, and `i.rej` as needed.
-11. Declare losses.
-12. If required declaration data is missing, output missing fields and safe provisional suggestions only.
-
----
-
-## 19. cNRE readability rules
-
-cNRE must be compact, but it must remain intelligible.
+If truth surfaces are used, cNRE may compress them as:
 
 ```yaml
-cNRE_Readability_Rules:
-  claim_statement:
-    rule: "Compact enough to reduce tokens; complete enough to be understood without hidden context."
-  aliases:
-    rule: "Use aliases only when a legend is included."
-  abbreviations:
-    rule: "Field-name abbreviations are allowed; domain-content abbreviations should be avoided unless declared."
-  relation_strings:
-    rule: "Relations may be terse because their grammar is canonical."
-  source_ids:
-    rule: "Source IDs are allowed only if source labels appear in declaration or truth surfaces."
-  human_readability:
-    rule: "If the output is so compressed that a careful reader cannot reconstruct the graph, it is not cNRE."
+ts:
+  AR: "artifact_reality"
+  DT: "durable_truth"
+  SC: "session_continuity"
+  PR: "projection"
+  AV: "authorial_voice"
+```
+
+If these aliases are used in claims or relations, the alias legend must be included.
+
+---
+
+## 16. Reconstructibility check
+
+Before promoting a consequential claim to `confirmed_coherent`, ask whether it can be reconstructed from its declared basis.
+
+```yaml
+Reconstructibility_Check:
+  can_rebuild_claim_from_sources: "true / false / partial / unknown"
+  source_trace_available: "true / false / partial / unknown"
+  transformation_steps_visible: "true / false / partial / unknown"
+  opaque_inference_state_used: "true / false / partial / unknown"
+  verdict: "reconstructible / partially_reconstructible / unreconstructable"
+  required_action_if_unreconstructable: "downgrade, surface tension, seek evidence, or halt dependent claim"
+```
+
+Unreconstructable claims may orient inquiry, but must not support empirical, safety-critical, institutional, or authority-bearing conclusions.
+
+### 16.1 cNRE reconstructibility row form
+
+```text
+rec[N]{claim,can_rebuild,source_trace,steps_visible,opaque_state,verdict,action_if_not}:
+  C1,true,true,true,false,reconstructible,NONE
 ```
 
 ---
 
-## 20. cNRE fallback behavior
+## 17. Rejection condition field
 
-If a model cannot safely compress the output, it must not fabricate cNRE.
+Every consequential claim should declare what would make it fail.
 
 ```yaml
-cNRE_Fallback:
-  if_compression_hides_conflict:
-    action: "Write full NRE_Output or cNRE_Bounded_Lossy with explicit active_tension and loss_ledger"
-  if_required_fields_missing:
-    action: "Output missing fields and safe provisional suggestions only"
-  if_relation_arguments_unresolvable:
-    action: "Create active_tension node or repair IDs before final output"
-  if_truth_surfaces_conflict:
-    action: "Classify divergence; do not merge"
-  if_user_requests_extreme_shortness:
-    action: "Use cNRE_Dense but preserve all protected fields"
+Rejection_Condition:
+  claim_node: "[C#]"
+  what_would_make_this_claim_fail: "[condition]"
+  what_evidence_would_force_revision: "[source/evidence]"
+  escalation_state: "none / seek_evidence / quarantine / external_review / human_review / halt"
+```
+
+Design for the rejection condition, not only the validation condition.
+
+### 17.1 cNRE rejection row form
+
+```text
+rej[N]{claim,fail_if,revise_if,escalation}:
+  C1,"A required field is absent","A validation target cannot be reconstructed",seek_evidence
 ```
 
 ---
 
-## 21. Examples
+## 18. cNRE loss ledger
 
-### 21.1 Minimal valid cNRE
+A `loss_ledger` is required for `cNRE_Bounded_Lossy` and optional for other profiles.
+
+```yaml
+loss_ledger:
+  - loss_id: "L1"
+    affected_item: "[node/edge/section/field]"
+    loss_type: "[omitted | shortened | generalized | aliased | factored | approximated]"
+    reason: "[why the loss occurred]"
+    effect_on_reconstruction: "[NONE or limitation]"
+    scope_limit: "[how downstream use is limited]"
+```
+
+Native row form:
+
+```text
+loss[N]{id,item,loss_type,reason,effect,scope_limit}:
+  L1,C3,shortened,"Statement compressed for handoff","Meaning preserved; exact wording lost","Do not quote as verbatim source"
+```
+
+Rules:
+
+- `declared_losses: NONE` means no validation-critical loss is known or intended.
+- If a node is omitted, the loss ledger must identify it.
+- If a claim statement is shortened, the loss ledger must say whether exact wording was lost.
+- If a conflict or tension would be hidden by compression, compression must stop or switch to object-form/full NRE.
+- `cNRE_Bounded_Lossy` cannot claim full validation equivalence.
+
+---
+
+## 19. cNRE reconstruction rules
+
+A reader or model must be able to expand cNRE into full NRE as follows:
+
+```yaml
+cNRE_Reconstruction:
+  step_1_read_cmeta: "Identify cNRE version, profile, compression type, and declared losses."
+  step_2_expand_legend: "Replace compact keys and aliases with full field names and full value labels."
+  step_3_expand_row_sections: "For every counted row section, expand each row into an object using the declared field list."
+  step_4_restore_graph: "Map g fields to NRE_Output.graph."
+  step_5_restore_declaration: "Map d fields to NRE_Output.declaration."
+  step_6_restore_claims: "Map c rows/objects to NRE_Output.claims, preserving id, statement, type, evidence_class, epistemic_status, and bounds."
+  step_7_restore_relations: "Copy relation strings exactly, preserving edge IDs."
+  step_8_restore_tensions: "Map tns rows/objects to NRE_Output.tensions."
+  step_9_restore_revisions: "Copy supersedes edges and preserve superseded claims when present."
+  step_10_apply_loss_ledger: "Mark any bounded losses and scope limitations."
+  step_11_check_invariants: "Verify evidence, status, bounds, relations, tensions, and revisions were not silently lost."
+```
+
+### 19.1 cNRE invariant checklist
+
+A cNRE is invalid if any of these fail:
+
+```yaml
+cNRE_Invariants:
+  - graph identity preserved
+  - declaration scope preserved
+  - every claim has id, statement, type, evidence class, epistemic status, and bounds
+  - every relation has an edge ID
+  - every relation argument is resolvable or declared external
+  - active tensions remain visible
+  - revisions preserve supersession edges
+  - declared losses are explicit
+  - truth-surface divergence is not silently merged
+  - warning/collapse/failure/critical/crisis language is gated by recovery boundary
+```
+
+---
+
+## 20. Writing procedure for full NRE
+
+1. State the declaration capsule or say what is missing.
+2. Write claims as nodes with evidence_class, epistemic_status, and bounds.
+3. Connect claims with relations.
+4. Record conflicts as active_tension nodes instead of suppressing them.
+5. Record replacements with supersedes edges; never delete superseded claims from the reasoning record.
+6. Do not use warning, collapse, failure, critical, or crisis language unless a recovery boundary has been declared.
+7. Do not cross substrate or scale without a declared transfer or scale shift.
+8. Do not treat proxies as full variables.
+9. Do not treat Narrative, Speculative, or Protocol-Stipulated claims as empirical evidence.
+
+---
+
+## 21. Writing procedure for cNRE
+
+1. Choose profile: default `cNRE_Readable`; use `cNRE_Row` only when repeated fields are stable and counts can be maintained.
+2. Write `cmeta` first.
+3. Declare `declared_losses`; default `NONE`.
+4. Write `legend` if compact keys or aliases are used.
+5. Write graph as `g`.
+6. Write declaration as `d`.
+7. Write claims as `c` objects or as counted rows.
+8. Write relations as `r` strings.
+9. Write tensions as `tns`; if none, use `tns: []` or `tns[0]{id,s,st,b.sub,b.scale,b.px}:`.
+10. Write revisions as `rev`; if none, use `rev: []` or `rev[0]:`.
+11. If using row form, verify row counts and row widths.
+12. If using bounded-lossy compression, include `loss_ledger` or `loss[...]`.
+13. Check reconstructibility before finalizing.
+14. If compression would hide an unresolved issue, output full NRE instead.
+
+---
+
+## 22. Minimal cNRE object example
 
 ```yaml
 cNRE_Output:
   cmeta:
-    cNRE_version: "cNRE-1.0"
+    cNRE_version: "cNRE-1.1"
     profile: "cNRE_Readable"
     source_contract: "NRE_Output"
     compression_type: "lossless_structure"
-    reconstruction_rule: "Expand compact keys by legend and map to NRE_Output"
     declared_losses: "NONE"
-
   legend:
     g: "graph"
     d: "declaration"
@@ -933,363 +1042,153 @@ cNRE_Output:
     r: "relations"
     tns: "tensions"
     rev: "revisions"
-    b: "bounds"
-    ev: "evidence_class"
-    st: "epistemic_status"
-    src: "source_basis"
-
   g:
-    id: "G_example_001"
-    title: "Uploaded Spec Sufficiency"
-    v: "NRE+cNRE-1.0"
-
+    id: "G1"
+    title: "cNRE definition"
+    v: "NRE Compact Core + Native cNRE Baseline v1.1"
   d:
-    sub:
-      domain: "semantic"
-      own_ack: "NRE operates as a semantic and computational reasoning substrate; claims about other domains are models"
-      transfers: ["NONE"]
-    scale:
-      level: "synthetic_runtime"
-      why: "The question concerns whether a prompt spec can guide model output"
-      shifts: ["NONE"]
-    px:
-      humility: "No proxy is equivalent to the variable it estimates"
-      items: [{ id: "NONE" }]
-    rb:
-      status: "NOT_APPLICABLE"
-      definition: "No warning/collapse/failure/critical/crisis language used"
-    ep: "Every claim has exactly one evidence class and bounds"
-
+    sub: "semantic/computational"
+    scale: "synthetic_runtime"
+    px: "NONE"
+    rb: "NOT_APPLICABLE"
+    ep: "Every claim has exactly one evidence class"
   c:
     - id: "C1"
-      s: "The original compact spec defines full NRE output but does not define cNRE as a first-class output format."
-      type: "spec claim"
-      ev: "Reconstructed"
-      st: "confirmed_coherent"
-      b: { sub: "semantic specification", scale: "document-level", px: "NONE" }
-      src: "NRE_Compact"
-    - id: "C2"
-      s: "A model asked for cNRE may default to full NRE if no cNRE schema is supplied."
-      type: "operational claim"
-      ev: "Inferred"
-      st: "candidate_hypothesis"
-      b: { sub: "model behavior", scale: "prompt-mediated output", px: "NONE" }
-      src: "C1 + observed user report"
-
-  r:
-    - "depends_on(C2, C1) @ E1"
-
-  tns: []
-  rev: []
-```
-
-### 21.2 Informed cNRE with truth-surface divergence
-
-```yaml
-cNRE_Output:
-  cmeta:
-    cNRE_version: "cNRE-1.0"
-    profile: "cNRE_Readable"
-    source_contract: "NRE_Output"
-    compression_type: "lossless_structure"
-    reconstruction_rule: "Expand compact keys by legend and map to NRE_Output with informed fields"
-    declared_losses: "NONE"
-
-  legend:
-    g: "graph"
-    d: "declaration"
-    c: "claims"
-    r: "relations"
-    tns: "tensions"
-    rev: "revisions"
-    i: "informed anti-collapse fields"
-
-  g: { id: "G_example_002", title: "Projection vs Artifact", v: "NRE+cNRE-1.0" }
-
-  d:
-    sub:
-      {
-        domain: "semantic",
-        own_ack: "NRE is semantic/computational",
-        transfers: ["NONE"],
-      }
-    scale:
-      {
-        level: "document-level",
-        why: "Comparing a source artifact and a summary",
-        shifts: ["NONE"],
-      }
-    px:
-      {
-        humility: "No proxy is equivalent to its target",
-        items:
-          [
-            {
-              id: "P1",
-              label: "summary",
-              estimates: "source content",
-              source: "projection",
-              limit: "May omit source details",
-            },
-          ],
-      }
-    rb:
-      { status: "NOT_APPLICABLE", definition: "No gated warning language used" }
-    ep: "Every claim has exactly one evidence class and bounds"
-
-  i:
-    ts:
-      artifact_reality:
-        { def: "source document", auth: "highest unless invalidated" }
-      projection: { def: "summary of source", auth: "never overrides source" }
-      rule: "Projection cannot override artifact without supersedes evidence"
-    arb:
-      - surfaces: ["artifact_reality", "projection"]
-        outcome: "both_valid_but_different"
-        reason: "Projection is a partial condensation of the source"
-        tension: "T1"
-
-  c:
-    - id: "C1"
-      s: "The artifact contains details not present in the projection."
-      type: "document claim"
-      ev: "Reconstructed"
+      s: "cNRE is compressed NRE, not summary."
+      type: "protocol claim"
+      ev: "Protocol-Stipulated"
       st: "confirmed_coherent"
       b:
-        {
-          sub: "semantic document comparison",
-          scale: "document-level",
-          px: "P1 partial-summary limit",
-        }
-      src: "artifact_reality"
-    - id: "C2"
-      s: "The projection should not be used as a complete replacement for the artifact."
-      type: "operational claim"
-      ev: "Inferred"
-      st: "confirmed_coherent"
-      b:
-        {
-          sub: "semantic document comparison",
-          scale: "document-level",
-          px: "P1 partial-summary limit",
-        }
-      src: "C1"
-
-  r:
-    - "depends_on(C2, C1) @ E1"
-    - "declares_truth_surface(G_example_002, artifact_reality) @ E2"
-    - "declares_truth_surface(G_example_002, projection) @ E3"
-    - "surface_precedence(artifact_reality, projection, C1) @ E4"
-
-  tns:
-    - id: "T1"
-      s: "Projection is valid as a summary but insufficient as a full source replacement."
-      st: "active_tension"
-      b:
-        {
-          sub: "semantic document comparison",
-          scale: "document-level",
-          px: "P1",
-        }
-
-  rev: []
-```
-
-### 21.3 Bounded-lossy cNRE
-
-```yaml
-cNRE_Output:
-  cmeta:
-    cNRE_version: "cNRE-1.0"
-    profile: "cNRE_Bounded_Lossy"
-    source_contract: "NRE_Output"
-    compression_type: "bounded_lossy"
-    reconstruction_rule: "Reconstruct only within declared losses"
-    declared_losses: "see loss_ledger"
-
-  g:
-    { id: "G_example_003", title: "Extreme Compact Handoff", v: "NRE+cNRE-1.0" }
-
-  d:
-    sub:
-      {
-        domain: "semantic",
-        own_ack: "NRE is semantic/computational",
-        transfers: ["NONE"],
-      }
-    scale:
-      {
-        level: "session_continuity",
-        why: "Handoff compression",
-        shifts: ["NONE"],
-      }
-    px:
-      {
-        humility: "No proxy equals target",
-        items:
-          [
-            {
-              id: "P1",
-              label: "handoff",
-              estimates: "prior session",
-              source: "compressed record",
-              limit: "May omit dialogue nuance",
-            },
-          ],
-      }
-    rb: { status: "NOT_APPLICABLE", definition: "No gated language used" }
-    ep: "Every claim has exactly one evidence class and bounds"
-
-  c:
-    - id: "C1"
-      s: "Core decision preserved; supporting discussion condensed."
-      type: "decision claim"
-      ev: "Reconstructed"
-      st: "confirmed_coherent"
-      b:
-        {
-          sub: "session record",
-          scale: "session_continuity",
-          px: "P1 omits nuance",
-        }
-      src: "prior full record"
-
+        sub: "NRE writing protocol"
+        scale: "all NRE/cNRE outputs"
+        px: "NONE"
   r: []
   tns: []
   rev: []
-
-  loss_ledger:
-    - loss_id: "L1"
-      source_path: "supporting discussion around C1"
-      loss_type: "omitted_explanation"
-      rationale: "Extreme handoff compression requested"
-      reconstruction_effect: "partial"
-      affected_nodes: ["C1"]
-      downstream_limit: "Use C1 as a preserved decision, not as a full transcript reconstruction"
 ```
 
 ---
 
-## 22. Common failure modes
+## 23. Minimal cNRE row example
+
+```text
+cNRE_Output:
+  cmeta:
+    cNRE_version: cNRE-1.1
+    profile: cNRE_Row
+    source_contract: NRE_Output
+    compression_type: lossless_structure
+    declared_losses: NONE
+  legend:
+    c: claims
+    r: relations
+    tns: tensions
+    rev: revisions
+    ev: evidence_class
+    st: epistemic_status
+  g:
+    id: G1
+    title: cNRE native row form
+    v: NRE Compact Core + Native cNRE Baseline v1.1
+  d:
+    sub: semantic/computational
+    scale: synthetic_runtime
+    px: NONE
+    rb: NOT_APPLICABLE
+    ep: Every claim has exactly one evidence class
+  c[2]{id,s,type,ev,st,b.sub,b.scale,b.px}:
+    C1,"cNRE uses counted sections for compact repeated records",protocol,Protocol-Stipulated,confirmed_coherent,NRE,all,NONE
+    C2,"Row compression is invalid if it hides evidence status bounds or tension",protocol,Protocol-Stipulated,confirmed_coherent,NRE,all,NONE
+  r[1]:
+    depends_on(C2,C1) @ E1
+  tns[0]{id,s,st,b.sub,b.scale,b.px}:
+  rev[0]:
+```
+
+---
+
+## 24. Minimal safe output when declarations are missing
+
+If required declaration data is missing, produce only the missing fields and safe provisional suggestions.
 
 ```yaml
-cNRE_Failure_Modes:
-  NRE_instead_of_cNRE:
-    symptom: "Output begins with NRE_Output even though cNRE was requested"
-    correction: "Begin with cNRE_Output and include cmeta/profile/legend"
-  summary_instead_of_cNRE:
-    symptom: "No graph, no node IDs, no evidence classes"
-    correction: "Use cNRE schema"
-  hidden_loss:
-    symptom: "Important tension or superseded claim omitted"
-    correction: "Restore it or declare bounded_lossy with loss_ledger"
-  overcompressed_values:
-    symptom: "Aliases such as cc/R/P1 used without legend"
-    correction: "Include legend or use full labels"
-  evidence_collapse:
-    symptom: "Narrative framing validates empirical claim"
-    correction: "Downgrade or separate orienting narrative from empirical support"
-  proxy_inflation:
-    symptom: "Proxy treated as the full target variable"
-    correction: "Declare proxy boundary"
-  scale_drift:
-    symptom: "Individual-scale claim applied to population without bridge"
-    correction: "Declare scale_shift and bridging argument or block application"
+NRE_Missing_Declaration_Output:
+  missing_required_fields:
+    - substrate.domain
+    - scale.declared_scale
+    - proxies.proxy_inventory
+    - recovery_boundary.status
+  why_required:
+    substrate: "Prevents unsupported cross-domain transfer"
+    scale: "Prevents cross-scale inference without bridge"
+    proxies: "Prevents proxy inflation"
+    recovery_boundary: "Required before warning/collapse/failure/critical/crisis language"
+  safe_provisional_suggestions:
+    - "Declare the domain being modeled"
+    - "Declare the observation scale"
+    - "Declare whether proxies are used"
+    - "Declare whether warning-language boundaries apply"
+  domain_conclusions: "BLOCKED"
 ```
+
+cNRE row form may compress this only if it does not create domain conclusions.
 
 ---
 
-## 23. Compact injectable prompt
+## 25. Compact injectable prompt
 
 ```text
-Use NRE/cNRE Writing Spec.
+Use NRE Core Writing Spec. For analytical output, produce either NRE_Output or cNRE_Output. First declare substrate, scale, proxies, recovery-boundary status, and evidence policy. Then write claims as nodes with id/statement/type/evidence_class/epistemic_status/bounds. Then connect claims with relation_name(args) @ edge_id. Every claim has exactly one evidence class: Measured, Reconstructed, Inferred, Operator-Declared, Modeled, Narrative, Speculative, or Protocol-Stipulated. Use epistemic status: confirmed_coherent, candidate_hypothesis, active_tension, unlinked_speculation, or superseded. Conflicts become visible active_tension nodes. Revisions preserve old claims with supersedes edges. No cross-substrate transfer, cross-scale inference, proxy inflation, evidence-class promotion, or warning/collapse/failure/critical/crisis language is allowed unless the required declaration exists. Narrative may orient inquiry but not validate empirical conclusions. Protocol-Stipulated values govern the protocol but are not empirical evidence. If required declaration data is missing, output only the missing fields and safe provisional suggestions; do not produce domain conclusions based on unvalidated speculative fields.
 
-If the user asks for NRE, produce NRE_Output. If the user asks for cNRE, compressed NRE, compact NRE, or compact graph, produce cNRE_Output, not full NRE.
-
-NRE output is a graph-shaped reasoning record: declare substrate, scale, proxies, recovery-boundary status, and evidence policy; write claims as nodes with node_id, statement, claim_type, evidence_class, epistemic_status, and bounds; connect claims with relation_name(args) @ edge_id; surface conflicts as active_tension nodes; preserve revisions with supersedes edges.
-
-cNRE is compressed NRE, not ordinary summary. A cNRE must begin with cNRE_Output and include cmeta, legend, graph g, declaration d, claims c, relations r, tensions tns, and revisions rev. Default profile is cNRE_Readable with compression_type lossless_structure and declared_losses: NONE. Use cNRE_Dense only when compression pressure requires aliases, and include the alias legend. Use cNRE_Bounded_Lossy only when loss is explicitly allowed or unavoidable; then include loss_ledger and scope limits.
-
-Every claim has exactly one evidence class: Measured, Reconstructed, Inferred, Operator-Declared, Modeled, Narrative, Speculative, or Protocol-Stipulated. Use epistemic status: confirmed_coherent, candidate_hypothesis, active_tension, unlinked_speculation, or superseded. Compression never promotes evidence class or epistemic status.
-
-Preserve cNRE invariants: graph identity, declaration scope, claim identity and meaning, claim type, evidence_class, epistemic_status, bounds, relation edges, active_tension nodes, revision edges, truth surfaces when relevant, reconstructibility for consequential claims, rejection conditions for consequential claims, and declared compression loss.
-
-Do not cross substrate or scale without declared transfer or bridge. Do not treat proxies as full variables. Do not use warning/collapse/failure/critical/crisis language unless a recovery boundary is declared. Do not silently merge divergent artifacts, durable truth, session continuity, projections, summaries, memories, or authorial voice. Classify divergence as confirmed_match, one_side_invalid, both_valid_but_different, insufficient_evidence, or requires_human_review. Unresolved divergence becomes active_tension.
-
-Before confirming consequential claims, state whether they are reconstructible from declared sources and name rejection conditions that would force revision. Unreconstructable, opaque, or conflicting bases become active_tension nodes, scope limitations, evidence-seeking, quarantine, or human review rather than smoothed conclusions.
-
-If required declaration data is missing, output only missing fields and safe provisional suggestions; do not produce domain conclusions based on unvalidated speculative fields.
+If asked for cNRE, produce compressed NRE rather than ordinary NRE or prose summary. Default to cNRE_Readable. Use cNRE_Row only when repeated records share stable fields and counts can be maintained. cNRE must preserve graph identity, declaration scope, claim IDs, claim statements, claim types, evidence classes, epistemic statuses, bounds, relations, tensions, revisions, truth surfaces when relevant, reconstructibility and rejection conditions when required, and declared losses. cNRE may use compact keys, aliases, counted sections, and field-listed rows. If compression would hide conflict, evidence limits, source divergence, bounds, or supersession, switch to full NRE.
 ```
 
 ---
 
-## 24. Ultra-compact cNRE prompt shard
-
-Use this only when prompt space is very limited.
+## 26. Ultra-compact cNRE prompt shard
 
 ```text
-cNRE = compressed NRE, not summary. If asked for cNRE, output cNRE_Output with cmeta/profile/loss declaration, legend, g, d, c, r, tns, rev. Preserve graph identity, declaration, claim IDs/statements/types, evidence_class, epistemic_status, bounds, relations, active tensions, revisions, truth surfaces when relevant, reconstructibility/rejection conditions for consequential claims, and declared losses. Default profile cNRE_Readable; declared_losses: NONE. Do not compress away evidence, bounds, tensions, conflicts, source-surface divergence, or supersession. If loss is unavoidable, use cNRE_Bounded_Lossy with loss_ledger and scope limits. If declarations are missing, output missing fields only; no domain conclusions from speculative fields.
+cNRE = compressed NRE, not summary. Output cNRE_Output with cmeta/profile/loss declaration, legend if aliases are used, g, d, c, r, tns, rev. Preserve graph identity, declaration, claim IDs/statements/types, evidence_class, epistemic_status, bounds, relations, active tensions, revisions, truth surfaces when relevant, reconstructibility/rejection conditions for consequential claims, and declared losses. Default profile cNRE_Readable. Use cNRE_Row for counted field-listed rows only when row counts and widths are exact. declared_losses: NONE unless bounded loss is explicitly listed. Do not compress away evidence, bounds, tensions, conflicts, source-surface divergence, or supersession. If declarations are missing, output missing fields only; no domain conclusions from speculative fields.
 ```
 
 ---
 
-## 25. Rapid cNRE self-check
+## 27. Separation from governance
 
-Before releasing cNRE, check:
+This file defines how to write NRE and cNRE output.
+
+Governance may validate this output, audit it, apply profile tiers, enforce deployment modes, run conformance tests, or gate release. Governance must not redefine canonical writing fields without a writing-spec version bump.
 
 ```yaml
-cNRE_Self_Check:
-  starts_with_cNRE_Output: "[yes/no]"
-  cmeta_present: "[yes/no]"
-  compression_profile_declared: "[yes/no]"
-  declared_losses_present: "[yes/no]"
-  graph_present: "[yes/no]"
-  declaration_present: "[yes/no]"
-  every_claim_has_id_statement_type_ev_st_bounds: "[yes/no]"
-  every_edge_has_unique_edge_id: "[yes/no]"
-  relation_arguments_resolvable: "[yes/no]"
-  active_tensions_preserved: "[yes/no]"
-  revisions_preserved: "[yes/no]"
-  truth_surface_divergence_visible_if_relevant: "[yes/no/not_applicable]"
-  reconstructibility_declared_for_consequential_claims: "[yes/no/not_applicable]"
-  rejection_conditions_declared_for_consequential_claims: "[yes/no/not_applicable]"
-  no_warning_language_without_recovery_boundary: "[yes/no]"
-  no_evidence_promotion_during_compression: "[yes/no]"
-  verdict: "[ready | repair_before_output | scope_limited]"
+separation:
+  writing_spec_owns:
+    - graph structure
+    - node fields
+    - edge grammar
+    - declaration capsule
+    - evidence class labels
+    - epistemic status labels
+    - cNRE object form
+    - cNRE native row form
+    - compression metadata
+    - loss declaration requirements
+    - reconstruction rules
+    - compact writing procedure
+  governance_owns:
+    - audits
+    - violation handling
+    - profile tiers
+    - deployment modes
+    - collaborative recovery workflow
+    - conformance tests
+    - enforcement claims
+    - versioning and change control beyond writing fields
 ```
-
-This self-check may be internal unless the user asks for diagnostic output.
 
 ---
 
-## 26. Writing/governance boundary
+## 28. Version note
 
-This document defines how to write NRE and cNRE outputs.
+This baseline replaces the earlier compact-only NRE writing module by making cNRE native to the core spec.
 
-It may include writing-layer self-checks because they help a model produce valid structure, but it does not claim automated enforcement. Governance, audit verdicts, deployment tiers, conformance tests, and enforcement claims belong to a separate governance document or implementation layer.
-
-A prompt using this file may claim:
-
-```text
-"Generated according to the NRE/cNRE writing spec."
-```
-
-It must not claim:
-
-```text
-"Automatically validated, audited, or software-enforced."
-```
-
-unless an actual governance or software layer performs those checks.
-
----
-
-## 27. Summary
-
-Full NRE writes the graph openly.
-
-cNRE writes the same graph compactly.
-
-A cNRE is successful when it is shorter than full NRE but still preserves the declarations, claims, evidence, bounds, relations, tensions, revisions, truth-surface separations, reconstructibility, rejection conditions, and loss declarations required to reconstruct and review the reasoning record.
-
-If compression would make the graph less truthful, less bounded, less reconstructible, or less honest about uncertainty, do not compress silently. Surface the loss, scope-limit the output, or write full NRE instead.
+The baseline remains prompt-injectable. It is larger than the original compact prompt because it now defines both full NRE and compressed NRE. For extremely small context windows, use the compact injectable prompt or ultra-compact cNRE prompt shard above.
